@@ -24,7 +24,7 @@ public class BurgerCombiner : MonoBehaviour
             if (!other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable)) { return; }
             if (interactable.isSelected) { return; }
 
-            interactable.enabled = false;
+            if (isStarts) interactable.enabled = false;
             Food food = other.GetComponent<Food>();
 
             if (objects.Contains(food)) { return; }
@@ -42,6 +42,7 @@ public class BurgerCombiner : MonoBehaviour
                 food.transform.parent = connectionPoint;
             } else if (food.isCooked & !food.isOvercooked & burgerFoods.startFood == food.food) {
                 objects.Add(food);
+                interactable.enabled = false;
                 isStarts = true;
 
                 Rigidbody rig = food.GetComponent<Rigidbody>();

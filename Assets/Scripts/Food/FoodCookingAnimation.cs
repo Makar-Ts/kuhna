@@ -26,6 +26,8 @@ public class FoodCookingAnimation : MonoBehaviour
     private void FixedUpdate()
     {
         scalableObject.parent.gameObject.SetActive(main.IsCooking());
+        scalableObject.parent.rotation = Quaternion.identity;
+
         float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, 0, main.food.timeToCook);
         scalableObject.localScale = new(scalableObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale), scalableObject.localScale.z);
 
