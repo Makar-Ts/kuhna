@@ -17,9 +17,15 @@ public class Food : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (Time.time - _lastCookingTime >= 0.5f) _isCooking = false;
+    }
+
     public void Cooking() {
         if (Time.time - _lastCookingTime >= 0.5f) _lastCookingTime = Time.time;
 
+        _isCooking = true;
         _cookingTime += Time.time - _lastCookingTime;
         _lastCookingTime = Time.time;
 
@@ -30,4 +36,7 @@ public class Food : MonoBehaviour
             }
         };
     }
+
+    public float GetCookingTime() => _cookingTime;
+    public bool IsCooking() => _isCooking;
 }

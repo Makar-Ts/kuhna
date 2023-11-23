@@ -40,9 +40,10 @@ public class Combiner : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerStay(Collider other) {
         if (other.tag == "Food") {
-            if (other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable) & interactable.isSelected) { return; }
+            if (!other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable)) { return; }
+            if (interactable.isSelected) { return; }
 
             Food food = other.GetComponent<Food>();
 
@@ -54,7 +55,8 @@ public class Combiner : MonoBehaviour
 
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Food") {
-            if (other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable) & !interactable.isSelected) { return; }
+            if (!other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable)) { return; }
+            if (interactable.isSelected) { return; }
 
             Food food = other.GetComponent<Food>();
 
