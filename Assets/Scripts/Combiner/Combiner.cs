@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Combiner : MonoBehaviour
 {
@@ -40,6 +42,8 @@ public class Combiner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Food") {
+            if (other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable) & interactable.isSelected) { return; }
+
             Food food = other.GetComponent<Food>();
 
             if (food.isCooked & !food.isOvercooked) {
@@ -50,6 +54,8 @@ public class Combiner : MonoBehaviour
 
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Food") {
+            if (other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable) & !interactable.isSelected) { return; }
+
             Food food = other.GetComponent<Food>();
 
             if (objects.Contains(food)) { objects.Remove(other.GetComponent<Food>()); }
