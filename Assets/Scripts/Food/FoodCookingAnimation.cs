@@ -7,10 +7,15 @@ public class FoodCookingAnimation : MonoBehaviour
     private const float healthBar_widthMultiplier = 15, healthBar_height = 20, healthBar_borderWidth = 4;
 
     [SerializeField] private Food main;
-
+    
+    [Header("Colors")]
     private Material startMat;
     private MeshRenderer rend;
     [SerializeField] private Gradient colors;
+
+    [Header("Block")]
+    [SerializeField] private Transform scalableObject;
+    [SerializeField] private Vector2 start2EndScale;
 
     private void Start() {
         rend = GetComponent<MeshRenderer>();
@@ -18,35 +23,17 @@ public class FoodCookingAnimation : MonoBehaviour
         colors.colorKeys[0] = new(startMat.color, 0);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        scalableObject.parent.gameObject.SetActive(main.IsCooking());
+        float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, 0, main.food.timeToCook);
+        scalableObject.localScale = new(scalableObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale), scalableObject.localScale.z);
+
         Material mat = startMat;
         mat.color = colors.Evaluate(scaleBetween(main.GetCookingTime(), 0, 1, 0, main.food.timeToOvercooked));
         print(scaleBetween(main.GetCookingTime(), 0, main.food.timeToOvercooked, 0, 1));
 
         rend.materials[0] = mat;
-    }
-
-    private void OnGUI()
-    {
-        if (!main.IsCooking()) return;
-
-        //GUI.skin = guiSkin;
-        float initalHealth = main.food.timeToCook, currentHealth = main.GetCookingTime();
-        if (initalHealth < currentHealth) currentHealth = initalHealth;
-
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-        screenPos.y = Screen.height - screenPos.y;
-        screenPos -= new Vector2(initalHealth * healthBar_widthMultiplier / 2, healthBar_height * 2);
-
-        Rect backgroundRect = new Rect(screenPos, new(initalHealth * healthBar_widthMultiplier + healthBar_borderWidth, healthBar_height));
-        Rect healthRect = new Rect(screenPos + new Vector2(healthBar_borderWidth / 2, healthBar_borderWidth / 2), new(currentHealth * healthBar_widthMultiplier, healthBar_height - healthBar_borderWidth));
-
-        GUI.color = Color.black;
-        GUI.Box(backgroundRect, "");
-
-        GUI.color = Color.green;
-        GUI.Box(healthRect, "");
     }
 
     float scaleBetween(float value, float outMin, float outMax, float inputMin, float inputMax) =>
