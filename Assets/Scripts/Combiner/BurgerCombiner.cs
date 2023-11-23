@@ -63,6 +63,7 @@ public class BurgerCombiner : MonoBehaviour
                     Transform child = createdObj.GetChild(i);
 
                     if (child.tag == "Food") {
+                        Destroy(child.GetComponent<XRGrabInteractable>());
                         Destroy(child.GetComponent<Food>());
                         Destroy(child.GetComponent<Rigidbody>());
                         Destroy(child.GetComponent<Collider>());
