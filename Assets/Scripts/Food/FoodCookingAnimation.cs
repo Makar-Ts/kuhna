@@ -25,11 +25,14 @@ public class FoodCookingAnimation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        scalableObject.parent.gameObject.SetActive(main.IsCooking());
-        scalableObject.parent.rotation = Quaternion.identity;
+        if (scalableObject)
+        {
+            scalableObject.parent.gameObject.SetActive(main.IsCooking());
+            scalableObject.parent.rotation = Quaternion.identity;
 
-        float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, 0, main.food.timeToCook);
-        scalableObject.localScale = new(scalableObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale), scalableObject.localScale.z);
+            float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, 0, main.food.timeToCook);
+            scalableObject.localScale = new(scalableObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale), scalableObject.localScale.z);
+        }
 
         Material mat = startMat;
         mat.color = colors.Evaluate(scaleBetween(main.GetCookingTime(), 0, 1, 0, main.food.timeToOvercooked));
