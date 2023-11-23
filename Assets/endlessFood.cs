@@ -11,7 +11,6 @@ public class endlessFood : MonoBehaviour
     {
         if(other.tag == "ForFoodBox")
         {
-            print("!");
             if (cnt == 0)
                 Instantiate(foodPref, foodAnchor.position, foodAnchor.rotation);
         }
