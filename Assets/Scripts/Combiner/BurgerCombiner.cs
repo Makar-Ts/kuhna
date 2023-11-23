@@ -19,11 +19,15 @@ public class BurgerCombiner : MonoBehaviour
         StartCoroutine(RemoveCells());
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerStay(Collider other) {
         if (other.tag == "Food") {
-            if (other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable) & interactable.isSelected) { return; }
+            if (!other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable)) { return; }
+            if (interactable.isSelected) { return; }
 
+            interactable.enabled = false;
             Food food = other.GetComponent<Food>();
+
+            if (objects.Contains(food)) { return; }
 
             if (food.isCooked & !food.isOvercooked & burgerFoods.acceptableFoods.Contains(food.food) & isStarts) {
                 objects.Add(food);
@@ -50,7 +54,7 @@ public class BurgerCombiner : MonoBehaviour
             } else if (food.isCooked & !food.isOvercooked & burgerFoods.endFood == food.food & isStarts) {
                 objects.Add(food);
 
-                food.transform.position = connectionPoint.position + transform.up*(distBetweenConnections*objects.Count);
+                food.transform.position = connectionPoint.position + transform.up*(distBetweenConnections*(objects.Count+1));
                 food.transform.rotation = connectionPoint.rotation;
 
                 food.transform.parent = connectionPoint;
@@ -84,7 +88,8 @@ public class BurgerCombiner : MonoBehaviour
 
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Food") {
-            if (other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable) & !interactable.isSelected) { return; }
+            if (!other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable)) { return; }
+            if (interactable.isSelected) { return; }
 
             Food food = other.GetComponent<Food>();
 
