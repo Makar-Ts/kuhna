@@ -14,7 +14,8 @@ public class FoodCookingAnimation : MonoBehaviour
     [SerializeField] private Gradient colors;
 
     [Header("Block")]
-    [SerializeField] private Transform scalableObject;
+    [SerializeField] private Transform scalableCookedObject;
+    [SerializeField] private Transform scalableOvercookedObject;
     [SerializeField] private Vector2 start2EndScale;
 
     private void Start() {
@@ -25,18 +26,20 @@ public class FoodCookingAnimation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (scalableObject)
-        {
-            scalableObject.parent.gameObject.SetActive(main.IsCooking());
-            scalableObject.parent.rotation = Quaternion.identity;
+        if (scalableCookedObject) {
+            scalableCookedObject.parent.gameObject.SetActive(main.IsCooking());
+            scalableCookedObject.parent.rotation = Quaternion.identity;
 
             float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, 0, main.food.timeToCook);
-            scalableObject.localScale = new(scalableObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale), scalableObject.localScale.z);
+            if (!float.IsNaN(scale)) scalableCookedObject.localScale = new(scalableCookedObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale), scalableCookedObject.localScale.z);
+        }
+        if (scalableOvercookedObject) {
+            float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, main.food.timeToCook, main.food.timeToOvercooked);
+            if (!float.IsNaN(scale)) scalableOvercookedObject.localScale = new(scalableOvercookedObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale < start2EndScale.x ? start2EndScale.x : scale), scalableOvercookedObject.localScale.z);
         }
 
         Material mat = startMat;
         mat.color = colors.Evaluate(scaleBetween(main.GetCookingTime(), 0, 1, 0, main.food.timeToOvercooked));
-        print(scaleBetween(main.GetCookingTime(), 0, main.food.timeToOvercooked, 0, 1));
 
         rend.materials[0] = mat;
     }

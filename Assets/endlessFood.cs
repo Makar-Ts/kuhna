@@ -8,6 +8,11 @@ public class endlessFood : MonoBehaviour
     public GameObject foodPref;
     public Transform foodAnchor;
 
+    private void Start()
+    {
+        Instantiate(foodPref, foodAnchor.position, foodAnchor.rotation);
+    }
+
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Food") {
             foodCount++;
