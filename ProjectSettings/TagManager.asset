@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Food
   - ForFoodBox
+  - SamplesInfoPanel
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Pan
   - ForFoodBox
   - FoodBox
-  - 
+  - StatLayer
   - 
   - 
   - 
