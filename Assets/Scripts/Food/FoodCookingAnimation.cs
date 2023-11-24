@@ -11,6 +11,7 @@ public class FoodCookingAnimation : MonoBehaviour
     [Header("Colors")]
     private Material startMat;
     private MeshRenderer rend;
+    private float colorScale = 0;
     [SerializeField] private Gradient colors;
 
     [Header("Block")]
@@ -37,22 +38,24 @@ public class FoodCookingAnimation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (main == null) this.enabled = false;
+        if (main != null) {
+            if (scalableCookedObject) {
+                scalableCookedObject.parent.gameObject.SetActive(main.IsCooking());
+                scalableCookedObject.parent.rotation = Quaternion.identity;
 
-        if (scalableCookedObject) {
-            scalableCookedObject.parent.gameObject.SetActive(main.IsCooking());
-            scalableCookedObject.parent.rotation = Quaternion.identity;
+                float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, 0, main.food.timeToCook);
+                if (!float.IsNaN(scale)) scalableCookedObject.localScale = new(scalableCookedObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale), scalableCookedObject.localScale.z);
+            }
+            if (scalableOvercookedObject) {
+                float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, main.food.timeToCook, main.food.timeToOvercooked);
+                if (!float.IsNaN(scale)) scalableOvercookedObject.localScale = new(scalableOvercookedObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale < start2EndScale.x ? start2EndScale.x : scale), scalableOvercookedObject.localScale.z);
+            }
 
-            float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, 0, main.food.timeToCook);
-            if (!float.IsNaN(scale)) scalableCookedObject.localScale = new(scalableCookedObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale), scalableCookedObject.localScale.z);
-        }
-        if (scalableOvercookedObject) {
-            float scale = scaleBetween(main.GetCookingTime(), start2EndScale.x, start2EndScale.y, main.food.timeToCook, main.food.timeToOvercooked);
-            if (!float.IsNaN(scale)) scalableOvercookedObject.localScale = new(scalableOvercookedObject.localScale.x, (scale > start2EndScale.y ? start2EndScale.y : scale < start2EndScale.x ? start2EndScale.x : scale), scalableOvercookedObject.localScale.z);
+            colorScale = scaleBetween(main.GetCookingTime(), 0, 1, 0, main.food.timeToOvercooked);
         }
 
         Material mat = startMat;
-        mat.color = colors.Evaluate(scaleBetween(main.GetCookingTime(), 0, 1, 0, main.food.timeToOvercooked));
+        mat.color = colors.Evaluate(colorScale);
 
         rend.materials[0] = mat;
     }

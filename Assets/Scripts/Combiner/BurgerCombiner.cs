@@ -37,6 +37,7 @@ public class BurgerCombiner : MonoBehaviour
                 Rigidbody rig = food.GetComponent<Rigidbody>();
                 rig.freezeRotation = true;
                 rig.constraints = RigidbodyConstraints.FreezeAll;
+                rig.isKinematic = true;
 
                 food.transform.position = connectionPoint.position + connectionPoint.up*(distBetweenConnections*objects.Count);
                 food.transform.rotation = connectionPoint.rotation;
@@ -52,6 +53,7 @@ public class BurgerCombiner : MonoBehaviour
                 Rigidbody rig = food.GetComponent<Rigidbody>();
                 rig.freezeRotation = true;
                 rig.constraints = RigidbodyConstraints.FreezeAll;
+                rig.isKinematic = true;
                 food.transform.position = connectionPoint.position;
                 food.transform.rotation = connectionPoint.rotation;
 
@@ -109,12 +111,14 @@ public class BurgerCombiner : MonoBehaviour
 
             if (objects.Contains(food)) { 
                 objects.Remove(other.GetComponent<Food>()); 
+                interactable.enabled = true;
 
                 food.transform.parent = null;
 
                 Rigidbody rig = food.GetComponent<Rigidbody>();
                 rig.freezeRotation = false;
                 rig.constraints = RigidbodyConstraints.None;
+                rig.isKinematic = false;
 
                 for (int i = 0; i < objects.Count; i++) {
                     objects[i].transform.position = connectionPoint.position + connectionPoint.up*(distBetweenConnections*i);
