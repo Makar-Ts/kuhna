@@ -19,6 +19,17 @@ public class FoodCookingAnimation : MonoBehaviour
     [SerializeField] private Vector2 start2EndScale;
 
     private void Start() {
+        if (main == null) {
+            if (!TryGetComponent<Food>(out main)) {
+                this.enabled = false;
+            }
+        }
+
+        if (scalableCookedObject == null & scalableOvercookedObject == null) {
+            scalableCookedObject = transform.GetChild(0).GetChild(1);
+            scalableOvercookedObject = transform.GetChild(0).GetChild(2);
+        }
+
         rend = GetComponent<MeshRenderer>();
         startMat = rend.materials[0];
         colors.colorKeys[0] = new(startMat.color, 0);
@@ -26,6 +37,8 @@ public class FoodCookingAnimation : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (main == null) this.enabled = false;
+
         if (scalableCookedObject) {
             scalableCookedObject.parent.gameObject.SetActive(main.IsCooking());
             scalableCookedObject.parent.rotation = Quaternion.identity;
