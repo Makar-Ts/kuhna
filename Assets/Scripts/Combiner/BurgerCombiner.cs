@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class BurgerCombiner : MonoBehaviour
 {
     [SerializeField] private BurgerFoodsSO burgerFoods;
+    [SerializeField] private GameObject burgerBase;
     
     [Header("Connection")]
     [SerializeField] private Transform connectionPoint;
@@ -60,9 +61,14 @@ public class BurgerCombiner : MonoBehaviour
 
                 food.transform.parent = connectionPoint;
 
-                Transform createdObj = Instantiate(connectionPoint).transform;
+                Transform point = Instantiate(connectionPoint).transform;
+                point.localScale = connectionPoint.parent.lossyScale;
+                point.position = connectionPoint.position;
+
+                Transform createdObj = Instantiate(burgerBase).transform;
                 createdObj.localScale = connectionPoint.parent.lossyScale;
                 createdObj.position = connectionPoint.position;
+                point.parent = createdObj;
 
                 for (int i = 0; i < createdObj.childCount; i++) {
                     Transform child = createdObj.GetChild(i);
