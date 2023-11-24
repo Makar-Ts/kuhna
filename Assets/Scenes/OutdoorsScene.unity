@@ -7060,7 +7060,7 @@ Transform:
   m_GameObject: {fileID: 465927485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.502035, y: 0.8215038, z: 0.3980269}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15351,6 +15351,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 4059279300811166479, guid: b6ba71b627468f64089f16397f795aa1, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5144438e8cf1e83469e8cd54a136ea78, type: 2}
     - target: {fileID: 4083501151425157549, guid: b6ba71b627468f64089f16397f795aa1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5835624
