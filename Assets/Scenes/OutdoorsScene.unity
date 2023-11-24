@@ -22617,7 +22617,7 @@ MonoBehaviour:
   burgerReady: {fileID: 11400000, guid: 424ef58a9cb44304ebe83c5c0e8f0fb8, type: 2}
   burgerBase: {fileID: 8687849915628864923, guid: d784041596e44a04a91501ed669c6568, type: 3}
   connectionPoint: {fileID: 1849966381}
-  distBetweenConnections: 0.03
+  distBetweenConnections: 0.02
 --- !u!65 &1197428686
 BoxCollider:
   m_ObjectHideFlags: 0

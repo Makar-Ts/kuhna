@@ -26,9 +26,9 @@ public class BurgerCombiner : MonoBehaviour
             if (!other.TryGetComponent<XRGrabInteractable>(out XRGrabInteractable interactable)) { return; }
             if (interactable.isSelected) { return; }
 
-            if (isStarts) interactable.enabled = false;
             Food food = other.GetComponent<Food>();
-
+            
+            if (isStarts & food.food != burgerReady) interactable.enabled = false;
             if (objects.Contains(food) | food.food == burgerReady) { return; }
 
             if (food.isCooked & !food.isOvercooked & burgerFoods.acceptableFoods.Contains(food.food) & isStarts) {
@@ -40,6 +40,8 @@ public class BurgerCombiner : MonoBehaviour
 
                 food.transform.position = connectionPoint.position + connectionPoint.up*(distBetweenConnections*objects.Count);
                 food.transform.rotation = connectionPoint.rotation;
+
+                StartCoroutine(FoodRelocate(food));
 
                 food.transform.parent = connectionPoint;
             } else if (food.isCooked & !food.isOvercooked & burgerFoods.startFood == food.food) {
@@ -59,6 +61,8 @@ public class BurgerCombiner : MonoBehaviour
 
                 food.transform.position = connectionPoint.position + transform.up*(distBetweenConnections*(objects.Count+1));
                 food.transform.rotation = connectionPoint.rotation;
+
+                StartCoroutine(FoodRelocate(food));
 
                 food.transform.parent = connectionPoint;
 
@@ -81,6 +85,8 @@ public class BurgerCombiner : MonoBehaviour
                         Destroy(child.GetComponent<Collider>());
                     }
                 }
+
+                isStarts = false;
 
                 for (int i = 0; i < objects.Count; i++) {
                     Food obj = objects[i];
@@ -121,6 +127,18 @@ public class BurgerCombiner : MonoBehaviour
         yield return 0;
 
         objects.RemoveAll(item => item == null);
+    }
+
+    public IEnumerator FoodRelocate(Food food) {
+        yield return 0;
+
+        if (Physics.Raycast(food.transform.position, -connectionPoint.up, out RaycastHit downHit, 1) &
+            Physics.Raycast(objects[objects.Count - 2].transform.position, connectionPoint.up, out RaycastHit upHit, 1)) {
+                food.transform.position -= (upHit.point-downHit.point);
+
+                Debug.DrawRay(food.transform.position, -connectionPoint.up);
+                Debug.DrawRay(objects[objects.Count - 2].transform.position, connectionPoint.up);
+            }
     }
 
     private void OnDrawGizmosSelected() {
