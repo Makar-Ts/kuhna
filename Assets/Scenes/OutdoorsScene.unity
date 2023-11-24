@@ -172,6 +172,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 128
+  gasEffect: {fileID: 0}
 --- !u!1 &33219739
 GameObject:
   m_ObjectHideFlags: 0
@@ -7842,6 +7843,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 64
+  rend: {fileID: 1453019304}
+  changingParam: _offset
+  fromToParam: {x: 0.5, y: -0.5}
 --- !u!54 &504550822
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7878,7 +7882,7 @@ Transform:
   m_GameObject: {fileID: 504550813}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.70710707, z: -0, w: 0.70710653}
-  m_LocalPosition: {x: 2.122, y: 0.9942, z: -0.958}
+  m_LocalPosition: {x: 2.3045, y: 1.038, z: -0.273}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8052,6 +8056,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 128
+  gasEffect: {fileID: 1371376553}
 --- !u!65 &544347828
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18187,6 +18192,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 128
+  gasEffect: {fileID: 1134726028}
 --- !u!1 &1104590053
 GameObject:
   m_ObjectHideFlags: 0
@@ -24016,6 +24022,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 128
+  gasEffect: {fileID: 395792659}
 --- !u!65 &1324972328
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24097,6 +24104,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 64
+  rend: {fileID: 0}
+  changingParam: 
+  fromToParam: {x: 0, y: 1}
 --- !u!65 &1337729862
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29357,7 +29367,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c8e09b373decb24daf776357c072992, type: 2}
+  - {fileID: 2100000, guid: fd685f00b174611469b55e9f0d853280, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -30200,6 +30210,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 64
+  rend: {fileID: 2146949402}
+  changingParam: _offset
+  fromToParam: {x: 0.5, y: -0.5}
 --- !u!54 &1633337424
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30236,7 +30249,7 @@ Transform:
   m_GameObject: {fileID: 1633337422}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.70710707, z: -0, w: 0.70710653}
-  m_LocalPosition: {x: 2.122, y: 0.9942, z: -0.671}
+  m_LocalPosition: {x: 2.297, y: 0.9942, z: -0.298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -32208,6 +32221,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 128
+  gasEffect: {fileID: 1023815923}
 --- !u!1 &1985415199
 GameObject:
   m_ObjectHideFlags: 0
@@ -33251,7 +33265,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c8e09b373decb24daf776357c072992, type: 2}
+  - {fileID: 2100000, guid: fd685f00b174611469b55e9f0d853280, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

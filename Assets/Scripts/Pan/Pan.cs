@@ -14,6 +14,11 @@ public class Pan : MonoBehaviour
     [SerializeField] private Vector3 size;
     [SerializeField] private LayerMask mask;
 
+    [Header("Material")]
+    [SerializeField] private MeshRenderer rend;
+    [SerializeField] private string changingParam;
+    [SerializeField] private Vector2 fromToParam = new Vector2(0, 1);
+
     public void AddTemperature(float temp) {
         if (temperature < 40f) temperature += temp*tempMultiplier*Time.fixedDeltaTime; 
     }
@@ -22,7 +27,11 @@ public class Pan : MonoBehaviour
     private float temperature = 0f;
 
     private void FixedUpdate() {
-        if (temperature > 0f)temperature -= coolOffSpeed*tempMultiplier*Time.fixedDeltaTime;
+        if (temperature > 0f) temperature -= coolOffSpeed*tempMultiplier*Time.fixedDeltaTime;
+
+        if (rend) {
+            rend.materials[0].SetFloat(changingParam, scaleBetween(temperature, fromToParam.x, fromToParam.y, 0, 40));
+        }
 
         if (temperature < 30f) return;
 
@@ -38,6 +47,9 @@ public class Pan : MonoBehaviour
     private void OnDrawGizmosSelected() {
         Gizmos.DrawWireCube(transform.position + center, size*2);
     }
+
+    float scaleBetween(float value, float outMin, float outMax, float inputMin, float inputMax) =>
+        outMin + (outMax - outMin) * ((value - inputMin) / (inputMax - inputMin));
 
     // private void OnGUI() {
     //     string text = "";
