@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour
     public LayerMask mask;
     public LayerMask maskStop;
     public GameObject PointPrefab;
+    public bool useRightHand = false;
     [NonSerialized] public RaycastHit ray;
     [NonSerialized] public bool collided = false;
     [NonSerialized] public bool enable = false;
@@ -34,7 +35,7 @@ public class Movement : MonoBehaviour
         axisL = InputManager.GetVector2(XRNode.LeftHand, CommonUsages.primary2DAxis);
         axisR = InputManager.GetVector2(XRNode.RightHand, CommonUsages.primary2DAxis);
         
-        if (axisL.y > 0 || axisR.y > 0) {
+        if (axisL.y > 0 || (axisR.y > 0 & useRightHand)) {
             RaycastHit hit = new RaycastHit();
             Vector3[] pos;
 

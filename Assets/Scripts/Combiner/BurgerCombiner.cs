@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class BurgerCombiner : MonoBehaviour
 {
     [SerializeField] private BurgerFoodsSO burgerFoods;
+    [SerializeField] private FoodSO burgerReady;
     [SerializeField] private GameObject burgerBase;
     
     [Header("Connection")]
@@ -28,7 +29,7 @@ public class BurgerCombiner : MonoBehaviour
             if (isStarts) interactable.enabled = false;
             Food food = other.GetComponent<Food>();
 
-            if (objects.Contains(food)) { return; }
+            if (objects.Contains(food) | food.food == burgerReady) { return; }
 
             if (food.isCooked & !food.isOvercooked & burgerFoods.acceptableFoods.Contains(food.food) & isStarts) {
                 objects.Add(food);
@@ -70,8 +71,8 @@ public class BurgerCombiner : MonoBehaviour
                 createdObj.position = connectionPoint.position;
                 point.parent = createdObj;
 
-                for (int i = 0; i < createdObj.childCount; i++) {
-                    Transform child = createdObj.GetChild(i);
+                for (int i = 0; i < point.childCount; i++) {
+                    Transform child = point.GetChild(i);
 
                     if (child.tag == "Food") {
                         Destroy(child.GetComponent<XRGrabInteractable>());

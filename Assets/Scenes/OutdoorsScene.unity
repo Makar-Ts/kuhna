@@ -9060,7 +9060,7 @@ Transform:
   m_GameObject: {fileID: 903826784}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.093, y: 0.397543, z: -1.987}
+  m_LocalPosition: {x: -0.019, y: 0.312, z: -1.987}
   m_LocalScale: {x: 0.60982, y: 0.60982, z: 0.60982}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21671,6 +21671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burgerFoods: {fileID: 11400000, guid: bbcbff5b19ebbf947b98ab7acb8ef594, type: 2}
+  burgerReady: {fileID: 11400000, guid: 424ef58a9cb44304ebe83c5c0e8f0fb8, type: 2}
   burgerBase: {fileID: 8687849915628864923, guid: d784041596e44a04a91501ed669c6568, type: 3}
   connectionPoint: {fileID: 1849966381}
   distBetweenConnections: 0.03
@@ -30609,6 +30610,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   PointPrefab: {fileID: 7821667254669953545, guid: e026b0f942b15724cba07b85ce69e101, type: 3}
+  useRightHand: 0
 --- !u!120 &2070135293
 LineRenderer:
   serializedVersion: 2
