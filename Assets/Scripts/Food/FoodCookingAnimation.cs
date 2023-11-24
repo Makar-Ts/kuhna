@@ -19,7 +19,7 @@ public class FoodCookingAnimation : MonoBehaviour
     [SerializeField] private Transform scalableOvercookedObject;
     [SerializeField] private Vector2 start2EndScale;
 
-    private void Start() {
+    private void Awake() {
         if (main == null) {
             if (!TryGetComponent<Food>(out main)) {
                 this.enabled = false;
